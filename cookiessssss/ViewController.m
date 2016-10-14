@@ -23,6 +23,7 @@
 //    [self.myweb loadRequest:req];
 //    [self.view addSubview:self.myweb];
 
+    //两秒之后在加载该view更加直观
     [self performSelector:@selector(gotodiddd) withObject:nil afterDelay:2.0f];
     
 }
@@ -31,8 +32,10 @@
 {
     self.safariView = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"http://adapp.jidonggame.com/"]];
     self.safariView.delegate=self;
+//    [self presentViewController:self.safariView animated:false completion:nil];
     [self addChildViewController:self.safariView];
     [self.view addSubview:self.safariView.view];
+    //延迟十秒之后删除safariView
     [self performSelector:@selector(remsss) withObject:nil afterDelay:10];
 }
 
