@@ -32,34 +32,25 @@
 {
     self.safariView = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"http://adapp.jidonggame.com/"]];
     self.safariView.delegate=self;
-//    [self presentViewController:self.safariView animated:false completion:nil];
-    [self addChildViewController:self.safariView];
-    [self.view addSubview:self.safariView.view];
-    //延迟十秒之后删除safariView
-    [self performSelector:@selector(remsss) withObject:nil afterDelay:10];
+    [self presentViewController:self.safariView animated:false completion:nil];
 }
 
--(void)remsss{
-    NSLog(@"remove");
-    [self.safariView.view removeFromSuperview];
-    [self.safariView removeFromParentViewController];
-    self.safariView = nil;
-}
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
     NSLog(@"%s",__func__);
 }
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully
 {
-    NSLog(@"%d",didLoadSuccessfully);
-
+    NSLog(@"didLoadSuccessfully:%d",didLoadSuccessfully);
+    if (didLoadSuccessfully) {
+        [controller dismissViewControllerAnimated:true completion:nil];
+    }
 }
 
 //- (void)webViewDidFinishLoad:(UIWebView *)webView
 //{
 //   
 //    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//    //    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:@"http://adapp.jidonggame.com/user/test"]];
 //    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:@"http://adapp.jidonggame.com/"]];
 //    NSEnumerator *enumerator = [cookies objectEnumerator];
 //    NSHTTPCookie *cookie;
@@ -67,8 +58,6 @@
 //        NSLog(@"COOKIE{name: %@, value: %@}", [cookie name], [cookie value]);
 //        [sharedHTTPCookieStorage deleteCookie:cookie];
 //    }
-//
-//    
 //}
 
 - (void)didReceiveMemoryWarning {
